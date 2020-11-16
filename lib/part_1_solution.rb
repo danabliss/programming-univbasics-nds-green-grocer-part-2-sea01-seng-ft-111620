@@ -1,34 +1,25 @@
 def find_item_by_name_in_collection(name, collection)
-  index = 0
-
-  collection.each do |grocery_item|
-    return grocery_item if grocery_item[:item] === name 
-    index += 1
-  end
-
-  nil
+  i = 0
+  while i < collection.length do
+    if collection[i][:item] == name
+      return collection[i]
+    end  
+    i += 1
+  end 
 end
 
-
 def consolidate_cart(cart)
-  index = 0
   new_cart = []
-  
-  cart.each do |grocery_item|
-    current_item = find_item_by_name_in_collection(grocery_item[:item], new_cart)
-    if current_item
-      new_cart_index = 0
-      new_cart.each do |new_cart_item|
-        if new_cart_item[:item] === current_item[:item]
-          new_cart_item[:count] += 1
-        end
-        new_cart_index += 1
-      end
+  i = 0
+  while i < cart.length do
+    new_cart_item = find_item_by_name_in_collection(cart[i][:item], new_cart)
+    if new_cart_item
+      new_cart_item[:count] += 1
     else
-      grocery_item[:count] = 1
-      new_cart << grocery_item
-    end
-    index += 1
+      cart[i][:count] = 1
+      new_cart << cart[i]
+    end   
+  i += 1
   end
   new_cart
 end
